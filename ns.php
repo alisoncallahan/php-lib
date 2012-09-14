@@ -321,6 +321,7 @@ class CNamespace
 		'name' => 'ArrayExpress repository for microarray data',
 		'url' => 'http://www.ebi.ac.uk/arrayexpress/',
 	),
+	'aspgd' => array('name'=>'aspergillus genome database','url'=>'http://www.aspgd.org/'),
 	'ath' => array(
 		'name' => 'Arabidopsis Hormone Database',
 		'url' => 'http://ahd.cbi.pku.edu.cn/'),
