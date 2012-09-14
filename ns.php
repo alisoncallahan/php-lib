@@ -299,6 +299,10 @@ class CNamespace
 	),
 	'afcs'      => array('name' => 'UCSD Signaling Gateway','url'=>'http://www.signaling-gateway.org/'),
 	'agd' => array('name'=>'Ashbya genome database', 'url' => 'http://agd.vital-it.ch/index.html'),
+	'agricola' => array(
+		'name' => 'The USDA National Agricultural Library Catalog (AGRICOLA) ',
+		'url' => 'http://agricola.nal.usda.gov/'
+	),
 	'alfred'	=> array('name' => 'Allele Frequency Database','url'=>'http://alfred.med.yale.edu/'),
 	'allergome' => array('name' => 'Allergome; a platform for allergen knowledge', 'url' => 'http://www.allergome.org/'),
 	'anu2dpage' => array(
@@ -410,6 +414,10 @@ class CNamespace
 	'euhcvdb'	=> array('name' => 'European Hepatitis C Virus database', 'url' => 'http://euhcvdb.ibcp.fr/euHCVdb/'),
 	'eupathdb'  => array('name' => 'Eukaryotic Pathogen Database Resources', 'url' => 'http://www.eupathdb.org/'),
 	'euroscarf' => array('name' => 'European Saccharomyces Cerevisiae Archive for Functional Analysis', 'url' => 'http://web.uni-frankfurt.de/fb15/mikro/euroscarf/'),
+	'evoc' => array(
+		'name' => 'eVOC ontology',
+		'url' => 'http://www.evocontology.org/'
+	),
 	'evolutionarytrace' => array(
 		'name' => 'Relative evolutionary importance of amino acids within a protein sequence',
 		'url' => 'http://mammoth.bcm.tmc.edu/ETserver.html',
@@ -556,6 +564,11 @@ class CNamespace
 	'orphanet'=>array('name'=> 'Orphanet : The portal for rare diseases and orphan drugs'),
 	'ordr'=> array('name'=>'Office of Rare Disease Research'),
 	'orthodb' => array('name' => 'Database of Orthologous Groups', 'url' => 'http://cegg.unige.ch/orthodb'),
+	'pathwayinteractiondb' => array(
+		'name' => 'NCI-Nature Pathway Interaction Database',
+		'url' => 'http://pid.nci.nih.gov/',
+		'synonyms' => array('pathway_interaction_db', 'pathway-interaction-db'),
+	),
 	'patric' => array('name' => 'Pathosystems Resource Integration Center (PATRIC)', 'url' => 'http://www.patricbrc.org/'),
 	'patternscan' => array('name' => ''),
 	'panther' => array('name' => 'The PANTHER (Protein ANalysis THrough Evolutionary Relationships) Classification System'),
@@ -595,6 +608,10 @@ class CNamespace
 		'name' => 'Purkyne Military Medical Academy 2D-PAGE database',
 		'url' => 'http://www.pmma.pmfhk.cz/2d/2d.html',
 		'synonyms' => 'pmma-2dpage'
+	),
+	'po' => array(
+		'name' => 'Plant Ontology',
+		'url' => 'http://www.plantontology.org/'
 	),
 	'pombase' => array('name' => 'Schizosaccharomyces pombe database', 'url' => 'http://www.pombase.org/'),
 	'pptasedb' => array('name' => 'Prokaryotic Protein Phosphatase Database', 'url' => 'http://www.phosphatase.biochem.vt.edu'),
