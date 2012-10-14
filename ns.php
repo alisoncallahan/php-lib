@@ -43,6 +43,19 @@ class CNamespace
 	//
 	'id-validation-regexp' => array('name' => 'Regular Expression for identifier syntax'),
 	'search-url' => array('name' => 'Pattern for placing an identifier into a URI'),
+	'pathwaycommons' => array(),
+	'affymetrix' => array('synonyms'=>'affx'),
+	'sanger' => array(),
+	'profile' => array(),
+	'pandit'=>array(),
+	'msdsite'=>array(),
+	'blocks'=>array(),
+	'prositedoc'=>array(),
+	'cath'=>array(),
+	'scop'=>array(),
+	'come'=>array('example-id'=>'PRX001296'),
+	'priam'=>array('example-id'=>'PRI002274'),
+	
 	
 	// terminologies, ontologies
 	'aa' => array('name'=>'Amino Acid Ontology','uri'=>'http://www.co-ode.org/ontologies/amino-acid/2006/05/18/amino-acid.owl#','alt-uri'=>'http://www.co-ode.org/ontologies/amino-acid/2005/10/11/amino-acid.owl#','example-id'=>'F'),
@@ -711,7 +724,7 @@ class CNamespace
 		'url' => 'http://world-2dpage.expasy.org/swiss-2dpage/',
 		'synonyms' => 'swiss-2dpage'
 	),
-	'swissprot'=> array('name' => 'SwissProt', 'part-of' => 'uniprot'),
+	
 	'symbol' => array('name' => 'Gene Symbols'),
 	'tair' => array(
 		'name' => 'The Arabidopsis Information Resource',
@@ -940,10 +953,10 @@ class CNamespace
 		if(count($a) == 1) {
 			// there is no prefix
 			$ns = null;
-			$id = $prefixed_name;
+			$id = trim($prefixed_name);
 		} else {
-			$ns = strtolower($a[0]);
-			$id = $a[1];
+			$ns = strtolower(trim($a[0]));
+			$id = trim($a[1]);
 		}
 		return TRUE;
 	}
@@ -972,8 +985,8 @@ class CNamespace
 				$ns = $this->ns_map[$ns][0];
 			} else {
 				// no match
-				trigger_error("Invalid namespace $ns for $qname", E_USER_ERROR); 
-				return FALSE;
+				trigger_error("Invalid namespace $ns in $qname".PHP_EOL, E_USER_WARNING);
+				return "$ns:$id";
 			}
 		}
 		
@@ -989,8 +1002,9 @@ class CNamespace
 	{
 		$this->ParsePrefixedName($qname,$ns,$id);		
 		if(!$this->isNS($ns)) {
-			trigger_error("Invalid qname ".$ns. " for $qname", E_USER_ERROR);
-			exit;
+			$temp_uri = "http://bio2rdf.org/$ns:$id";
+			trigger_error("Invalid namespace:$ns for qname:$qname. Using $temp_uri".PHP_EOL, E_USER_WARNING);
+			return $temp_uri;
 		}
 		return $this->getNSURI($ns).$id;
 	}
