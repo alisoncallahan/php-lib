@@ -5,14 +5,21 @@ $instance_file = $base_dir."/instances.tab";
 $apache_config_file   = $base_dir."/virtuoso-apache.conf";
 $virtuoso_dir   = "/usr/local/virtuoso-opensource-6.1.6";
 
-if($argc <= 2 || (isset($argv[2]) && !in_array($argv[2],array("create","refresh","start","stop","apacheconfig")))) {
- echo "$argv[0] [all|ns] [create|start|stop|refresh|apacheconfig] [GB memory to use]".PHP_EOL;
+if($argc <= 2 || (isset($argv[2]) && !in_array($argv[2],array("create","refresh","start","stop","apacheconfig", "allowfed")))) {
+ echo "$argv[0] [all|ns] [create|start|stop|refresh|apacheconfig|allowfed] [GB memory to use] [user] [pass] ".PHP_EOL;
  exit;
 }
 $ns = $argv[1];
 $fnx = $argv[2];
 $opt = '';
 if(isset($argv[3])) $opt = $argv[3];
+
+$user = '';
+$pass = '';
+
+if(isset($argv[4])) $user = $argv[4];
+
+if(isset($argv[5])) $pass = $argv[5];
 
 $instances = GetInstancesFromFile($instance_file);
 if($ns != "all") {
@@ -41,6 +48,8 @@ foreach($list AS $n => $i)
   else if($fnx == "stop") StopInstance($i);
   else if($fnx == "refresh") CreateVirtuosoINI($i,$instance_dir,$virtuoso_dir);
   else if($fnx == "apacheconfig") $buf .= CreateApacheConfig($i);
+  else if($fnx == "allowfed") SetFederatedQueryPermissions($i, $user, $pass);
+
   if($ns != 'all') break;
 }
 if($buf) file_put_contents($apache_config_file,$buf);
@@ -220,4 +229,25 @@ $buf = '<VirtualHost *:80>
 ';
  return $buf;
 }
+
+function SetFederatedQueryPermissions(&$instance, $user, $pass){
+
+  $isql = "/opt/virtuoso-6.1.6/bin/isql";
+
+  $isql_port = $instance['isql_port'];
+
+  $cmd_pre = "$isql -S ".$isql_port." -U ".$user." -P ".$pass." verbose=on banner=off prompt=off echo=ON errors=stdout exec=".'"'; 
+  
+  $cmd_post = '"';
+
+  $cmd1 = 'grant select on "DB.DBA.SPARQL_SINV_2" to "SPARQL"';
+ 
+  $cmd2 = 'grant execute on "DB.DBA.SPARQL_SINV_IMP" to "SPARQL"';
+
+  //execute commands
+ echo $out = shell_exec($cmd_pre.$cmd1.$cmd_post);
+ echo $out = shell_exec($cmd_pre.$cmd2.$cmd_post);
+
+}
+
 ?>
